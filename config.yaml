@@ -1,0 +1,571 @@
+allow-lan: true
+dns:
+  enable: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  default-nameserver:
+    - 114.114.114.114
+  nameserver:
+    - https://doh.pub/dns-query
+listeners:
+  - name: mixedC1
+    type: mixed
+    port: 43000
+    proxy: 🔗 链式代理1
+  - name: mixedC2
+    type: mixed
+    port: 43001
+    proxy: 🔗 链式代理2
+  - name: mixedC3
+    type: mixed
+    port: 43002
+    proxy: 🔗 链式代理3
+  - name: mixed0
+    type: mixed
+    port: 42000
+    proxy: JP专线0001
+  - name: mixed1
+    type: mixed
+    port: 42001
+    proxy: US专线0001
+  - name: mixed2
+    type: mixed
+    port: 42002
+    proxy: 🇭🇰 香港 01
+  - name: mixed3
+    type: mixed
+    port: 42003
+    proxy: 🇭🇰 香港 02
+  - name: mixed4
+    type: mixed
+    port: 42004
+    proxy: 🇭🇰 香港 03
+  - name: mixed5
+    type: mixed
+    port: 42005
+    proxy: 🇭🇰 香港 04
+  - name: mixed6
+    type: mixed
+    port: 42006
+    proxy: 🇭🇰 香港 05
+  - name: mixed7
+    type: mixed
+    port: 42007
+    proxy: 🇹🇼 台湾 01
+  - name: mixed8
+    type: mixed
+    port: 42008
+    proxy: 🇹🇼 台湾 02
+  - name: mixed9
+    type: mixed
+    port: 42009
+    proxy: 🇯🇵 日本 01
+  - name: mixed10
+    type: mixed
+    port: 42010
+    proxy: 🇯🇵 日本 02
+  - name: mixed11
+    type: mixed
+    port: 42011
+    proxy: 🇯🇵 日本 03
+  - name: mixed12
+    type: mixed
+    port: 42012
+    proxy: 🇸🇬 新加坡 01
+  - name: mixed13
+    type: mixed
+    port: 42013
+    proxy: 🇸🇬 新加坡 02
+  - name: mixed14
+    type: mixed
+    port: 42014
+    proxy: 🇸🇬 新加坡 03
+  - name: mixed15
+    type: mixed
+    port: 42015
+    proxy: 🇰🇷 韩国
+  - name: mixed16
+    type: mixed
+    port: 42016
+    proxy: 🇺🇸 美国 01
+  - name: mixed17
+    type: mixed
+    port: 42017
+    proxy: 🇺🇸 美国 02
+  - name: mixed18
+    type: mixed
+    port: 42018
+    proxy: 🇺🇸 美国 03
+  - name: mixed19
+    type: mixed
+    port: 42019
+    proxy: 🇨🇦 加拿大
+  - name: mixed20
+    type: mixed
+    port: 42020
+    proxy: 🇻🇳 越南
+  - name: mixed21
+    type: mixed
+    port: 42021
+    proxy: 🇲🇾 马来西亚
+  - name: mixed22
+    type: mixed
+    port: 42022
+    proxy: 🇹🇭 泰国
+  - name: mixed23
+    type: mixed
+    port: 42023
+    proxy: 🇮🇳 印度
+  - name: mixed24
+    type: mixed
+    port: 42024
+    proxy: 🇵🇭 菲律宾
+  - name: mixed25
+    type: mixed
+    port: 42025
+    proxy: 🇮🇩 印尼
+  - name: mixed26
+    type: mixed
+    port: 42026
+    proxy: 🇦🇺 澳大利亚
+  - name: mixed27
+    type: mixed
+    port: 42027
+    proxy: 🇳🇿 新西兰
+  - name: mixed28
+    type: mixed
+    port: 42028
+    proxy: 🇩🇪 德国
+  - name: mixed29
+    type: mixed
+    port: 42029
+    proxy: 🇫🇷 法国
+  - name: mixed30
+    type: mixed
+    port: 42030
+    proxy: 🇨🇭 瑞士
+  - name: mixed31
+    type: mixed
+    port: 42031
+    proxy: 🇬🇧 英国
+  - name: mixed32
+    type: mixed
+    port: 42032
+    proxy: 🇵🇱 波兰
+  - name: mixed33
+    type: mixed
+    port: 42033
+    proxy: 🇮🇹 意大利
+  - name: mixed34
+    type: mixed
+    port: 42034
+    proxy: 🇪🇸 西班牙
+  - name: mixed35
+    type: mixed
+    port: 42035
+    proxy: 🇳🇱 荷兰
+  - name: mixed36
+    type: mixed
+    port: 42036
+    proxy: 🇷🇺 俄罗斯
+  - name: mixed37
+    type: mixed
+    port: 42037
+    proxy: 🇺🇦 乌克兰
+  - name: mixed38
+    type: mixed
+    port: 42038
+    proxy: 🇪🇬 埃及
+  - name: mixed39
+    type: mixed
+    port: 42039
+    proxy: 🇳🇬 尼日利亚
+  - name: mixed40
+    type: mixed
+    port: 42040
+    proxy: 🇲🇩 摩尔多瓦
+  - name: mixed41
+    type: mixed
+    port: 42041
+    proxy: 🇵🇰 巴基斯坦
+  - name: mixed42
+    type: mixed
+    port: 42042
+    proxy: 🇺🇿 乌兹别克斯坦
+  - name: mixed43
+    type: mixed
+    port: 42043
+    proxy: 🇹🇷 土耳其
+  - name: mixed44
+    type: mixed
+    port: 42044
+    proxy: 🇦🇷 阿根廷
+  - name: mixed45
+    type: mixed
+    port: 42045
+    proxy: 🇧🇷 巴西
+  - name: mixed46
+    type: mixed
+    port: 42046
+    proxy: 🇲🇽 墨西哥
+  - name: mixed47
+    type: mixed
+    port: 42047
+    proxy: 🇨🇱 智利
+proxies:
+  - name: JP专线0001
+    type: socks5
+    server: sp-us1.kookeey.info
+    port: 16658
+    username: zhuxietong
+    password: '11111111'
+  - name: US专线0001
+    type: http
+    server: us10.kookeey.info
+    port: 27691
+    username: zhuxietong
+    password: '11111111'
+  - name: ML专线0001
+    type: socks5
+    server: 46.3.158.187
+    port: 8000
+    username: TQvfvW
+    password: U8EaBp
+  - name: 🇭🇰 香港 01
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 21101
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇭🇰 香港 02
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 21102
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇭🇰 香港 03
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 21103
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇭🇰 香港 04
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 21004
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇭🇰 香港 05
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 21005
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇹🇼 台湾 01
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 22001
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇹🇼 台湾 02
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 22002
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇯🇵 日本 01
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 24001
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇯🇵 日本 02
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 24002
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇯🇵 日本 03
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 24003
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇸🇬 新加坡 01
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 23001
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇸🇬 新加坡 02
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 23002
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇸🇬 新加坡 03
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 23003
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇰🇷 韩国
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 25001
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇺🇸 美国 01
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 26001
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇺🇸 美国 02
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 26002
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇺🇸 美国 03
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 26003
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇨🇦 加拿大
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27014
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇻🇳 越南
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27024
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇲🇾 马来西亚
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27018
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇹🇭 泰国
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27016
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇮🇳 印度
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27020
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇵🇭 菲律宾
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27001
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇮🇩 印尼
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27019
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇦🇺 澳大利亚
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27008
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇳🇿 新西兰
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27028
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇩🇪 德国
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27004
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇫🇷 法国
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27023
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇨🇭 瑞士
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27007
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇬🇧 英国
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27005
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇵🇱 波兰
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27010
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇮🇹 意大利
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27012
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇪🇸 西班牙
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27026
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇳🇱 荷兰
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27027
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇷🇺 俄罗斯
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27025
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇺🇦 乌克兰
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27022
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇪🇬 埃及
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27021
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇳🇬 尼日利亚
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27029
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇲🇩 摩尔多瓦
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27013
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇵🇰 巴基斯坦
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27017
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇺🇿 乌兹别克斯坦
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27015
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇹🇷 土耳其
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27003
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇦🇷 阿根廷
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27006
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇧🇷 巴西
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27009
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇲🇽 墨西哥
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27011
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇨🇱 智利
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 27002
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+proxy-groups:
+  - name: "🔗 链式代理1"
+    type: relay
+    proxies:
+      - 🇭🇰 香港 01
+      - JP专线0001
+  - name: "🔗 链式代理2"
+    type: relay
+    proxies:
+      - 🇺🇸 美国 01
+      - US专线0001
+  - name: "🔗 链式代理3"
+    type: relay
+    proxies:
+      - 🇭🇰 香港 01
+      - ML专线0001
