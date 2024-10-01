@@ -167,9 +167,6 @@
         "domain_suffix": [
           "tianyan.com"
         ],
-        "ip": [
-          "102.3023.1.2"
-        ],
         "outbound": "direct"
       },
       {
