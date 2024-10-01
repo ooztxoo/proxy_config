@@ -82,6 +82,14 @@
       "listen_port": 2080,
       "sniff": true,
       "users": []
+    },
+    {
+      "tag": "30000",
+      "type": "mixed",
+      "listen": "::",
+      "listen_port": 30000,
+      "sniff": true,
+      "users": []
     }
   ],
   "outbounds": [
@@ -119,6 +127,18 @@
       "url": "http://www.gstatic.com/generate_204",
       "interval": "10m",
       "tolerance": 50
+    },
+    {
+      "tag": "🔯 香港自动",
+      "type": "socks",
+      "server": "107.155.0.68",
+      "server_port": 16658,
+      "version": "5",
+      "username": "zhuxietong",
+      "password": "11111111",
+      "network": "tcp",
+      "udp_over_tcp": true,
+      "detour": "XG"
     },
     {
       "tag": "♻️ 自动选择",
@@ -167,7 +187,7 @@
         "domain_suffix": [
           "tianyan.com"
         ],
-        "outbound": "direct"
+        "outbound": "🎯 全球直连"
       },
       {
         "type": "logical",
@@ -181,6 +201,10 @@
           }
         ],
         "outbound": "dns-out"
+      },
+      {
+        "inbound": "30000",
+        "outbound": "JP"
       },
       {
         "clash_mode": "direct",
