@@ -1,0 +1,65 @@
+allow-lan: true
+dns:
+  enable: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  default-nameserver:
+    - 114.114.114.114
+  nameserver:
+    - https://doh.pub/dns-query
+listeners:
+  - name: mixedC1
+    type: mixed
+    port: 4301
+    proxy: 🔗 链式代理1
+  - name: mixedC2
+    type: mixed
+    port: 4301
+    proxy: 🔗 链式代理2
+  - name: mixedC3
+    type: mixed
+    port: 4302
+    proxy: 🔗 链式代理3
+  - name: mixed0
+    type: mixed
+    port: 4200
+    proxy: JP专线0001
+proxies:
+  - name: JP专线0001
+    type: socks5
+    server: sp-us1.kookeey.info
+    port: 16658
+    username: zhuxietong
+    password: '11111111'
+  - name: US专线0001
+    type: http
+    server: us10.kookeey.info
+    port: 27691
+    username: zhuxietong
+    password: '11111111'
+  - name: ML专线0001
+    type: socks5
+    server: 46.3.158.187
+    port: 8000
+    username: TQvfvW
+    password: U8EaBp
+  - name: 🇭🇰 香港 01
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 21101
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+  - name: 🇭🇰 香港 02
+    type: ss
+    server: lienbagh.yangliq.com
+    port: 21102
+    cipher: aes-128-gcm
+    password: f8308ffa-0b18-44f8-aa02-8b466bc6e6df
+    udp: true
+proxy-groups:
+  - name: "🔗 链式代理1"
+    type: relay
+    proxies:
+      - 🇭🇰 香港 01
+      - JP专线0001
