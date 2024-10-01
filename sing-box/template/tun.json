@@ -129,7 +129,7 @@
       "tolerance": 50
     },
     {
-      "tag": "🔯 香港自动",
+      "tag": "JP",
       "type": "socks",
       "server": "107.155.0.68",
       "server_port": 16658,
@@ -138,7 +138,7 @@
       "password": "11111111",
       "network": "tcp",
       "udp_over_tcp": true,
-      "detour": "XG"
+      "detour": "🔯 香港自动"
     },
     {
       "tag": "♻️ 自动选择",
