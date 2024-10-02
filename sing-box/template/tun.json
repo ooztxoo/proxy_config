@@ -99,6 +99,14 @@
       "listen_port": 30001,
       "sniff": true,
       "users": []
+    },
+    {
+      "tag": "31000",
+      "type": "mixed",
+      "listen": "::",
+      "listen_port": 31000,
+      "sniff": true,
+      "users": []
     }
   ],
   "outbounds": [
@@ -138,7 +146,7 @@
       "tolerance": 50
     },
     {
-      "tag": "JP",
+      "tag": "JP000",
       "type": "socks",
       "server": "107.155.0.68",
       "server_port": 16658,
@@ -150,7 +158,17 @@
       "detour": "🔯 香港自动"
     },
     {
-      "tag": "ML",
+      "tag": "JP001",
+      "type": "socks",
+      "server": "jp242.kookeey.info",
+      "server_port": 21050,
+      "version": "5",
+      "username": "b64ddd8d",
+      "password": "e9714e66",
+      "detour": "🔯 香港自动"
+    },
+    {
+      "tag": "ML0000",
       "type": "socks",
       "server": "46.3.158.187",
       "server_port": 8000,
@@ -223,11 +241,15 @@
       },
       {
         "inbound": "30000",
-        "outbound": "JP"
+        "outbound": "JP000"
       },
       {
         "inbound": "30001",
-        "outbound": "ML"
+        "outbound": "JP001"
+      },
+      {
+        "inbound": "31000",
+        "outbound": "ML000"
       },
       {
         "clash_mode": "direct",
