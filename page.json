@@ -1,7 +1,7 @@
 {
   "log": {
     "level": "info",
-    "disabled": true,
+    "disabled": false,
     "timestamp": true
   },
   "experimental": {
@@ -91,6 +91,22 @@
       "listen_port": 30000,
       "sniff": true,
       "users": []
+    },
+    {
+      "tag": "30001",
+      "type": "mixed",
+      "listen": "::",
+      "listen_port": 30001,
+      "sniff": true,
+      "users": []
+    },
+    {
+      "tag": "31000",
+      "type": "mixed",
+      "listen": "::",
+      "listen_port": 31000,
+      "sniff": true,
+      "users": []
     }
   ],
   "outbounds": [
@@ -108,7 +124,7 @@
       "tag": "🐸 手动切换",
       "type": "selector",
       "outbounds": [
-        "Traffic: 206.42 MB | 500 GB",
+        "Traffic: 207.41 MB | 500 GB",
         "Expire: 2024-11-02",
         "🇭🇰 Hong Kong 01",
         "🇭🇰 Hong Kong 02",
@@ -233,7 +249,7 @@
       "tolerance": 50
     },
     {
-      "tag": "JP",
+      "tag": "JP000",
       "type": "socks",
       "server": "107.155.0.68",
       "server_port": 16658,
@@ -245,10 +261,30 @@
       "detour": "🔯 香港自动"
     },
     {
+      "tag": "JP001",
+      "type": "socks",
+      "server": "jp242.kookeey.info",
+      "server_port": 21050,
+      "version": "5",
+      "username": "b64ddd8d",
+      "password": "e9714e66",
+      "detour": "🔯 香港自动"
+    },
+    {
+      "tag": "ML000",
+      "type": "socks",
+      "server": "185.242.245.57",
+      "server_port": 8000,
+      "version": "5",
+      "username": "xjbwvG",
+      "password": "U0K3uC",
+      "detour": "🔯 香港自动"
+    },
+    {
       "tag": "♻️ 自动选择",
       "type": "urltest",
       "outbounds": [
-        "Traffic: 206.42 MB | 500 GB",
+        "Traffic: 207.41 MB | 500 GB",
         "Expire: 2024-11-02",
         "🇭🇰 Hong Kong 01",
         "🇭🇰 Hong Kong 02",
@@ -360,7 +396,7 @@
       "type": "dns"
     },
     {
-      "tag": "Traffic: 206.42 MB | 500 GB",
+      "tag": "Traffic: 207.41 MB | 500 GB",
       "type": "shadowsocks",
       "server": "061a43b9-2e7f-93ab-5ed1-8e9e582bd574.ss03.net",
       "server_port": 22350,
@@ -1100,7 +1136,15 @@
       },
       {
         "inbound": "30000",
-        "outbound": "JP"
+        "outbound": "JP000"
+      },
+      {
+        "inbound": "30001",
+        "outbound": "JP001"
+      },
+      {
+        "inbound": "31000",
+        "outbound": "ML000"
       },
       {
         "clash_mode": "direct",
