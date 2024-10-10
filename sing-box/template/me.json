@@ -166,7 +166,10 @@
           "skyeyes.com.cn"
         ],
         "domain_suffix": [
-          "tianyan.com"
+          "tianyan.com",
+          "douyin.com",
+          "zijieapi.com",
+          ".cn"
         ],
         "outbound": "🎯 全球直连"
       },
