@@ -162,6 +162,12 @@
     "final": "GLOBAL",
     "rules": [
       {
+        "ip": [
+          "101.89.153.194"
+        ],
+        "outbound": "direct"
+      },
+      {
         "domain": [
           "skyeyes.com.cn"
         ],
@@ -174,6 +180,7 @@
           "umijs.org",
           ".design",
           "firstvar.com",
+          "hailiangip.com",
           ".cn"
         ],
         "outbound": "🎯 全球直连"
