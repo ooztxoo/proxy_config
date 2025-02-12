@@ -1,0 +1,1259 @@
+{
+  "log": {
+    "level": "info",
+    "disabled": true,
+    "timestamp": true
+  },
+  "experimental": {
+    "clash_api": {
+      "external_controller": "0.0.0.0:9090",
+      "external_ui": "ui",
+      "secret": "",
+      "external_ui_download_url": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip",
+      "external_ui_download_detour": "🎯 全球直连",
+      "default_mode": "rule"
+    }
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "proxyDns",
+        "address": "tls://8.8.8.8",
+        "address_resolver": "localDns",
+        "address_strategy": "ipv4_only",
+        "detour": "🚀 节点选择"
+      },
+      {
+        "tag": "localDns",
+        "address": "223.5.5.5",
+        "detour": "🎯 全球直连"
+      },
+      {
+        "tag": "block",
+        "address": "rcode://success"
+      }
+    ],
+    "rules": [
+      {
+        "outbound": "any",
+        "server": "localDns",
+        "disable_cache": true
+      },
+      {
+        "rule_set": "geosite-cn",
+        "server": "localDns"
+      },
+      {
+        "clash_mode": "direct",
+        "server": "localDns"
+      },
+      {
+        "clash_mode": "global",
+        "server": "proxyDns"
+      },
+      {
+        "rule_set": "geosite-geolocation-!cn",
+        "server": "proxyDns"
+      }
+    ],
+    "final": "localDns",
+    "strategy": "ipv4_only"
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "inet4_address": "172.19.0.1/30",
+      "mtu": 9000,
+      "auto_route": true,
+      "strict_route": true,
+      "sniff": true,
+      "endpoint_independent_nat": false,
+      "stack": "system",
+      "platform": {
+        "http_proxy": {
+          "enabled": true,
+          "server": "0.0.0.0",
+          "server_port": 2080
+        }
+      }
+    },
+    {
+      "type": "mixed",
+      "listen": "0.0.0.0",
+      "listen_port": 2080,
+      "sniff": true,
+      "users": []
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "🚀 节点选择",
+      "type": "selector",
+      "outbounds": [
+        "🔯 香港自动",
+        "🐸 手动切换",
+        "♻️ 自动选择",
+        "🎯 全球直连"
+      ]
+    },
+    {
+      "tag": "🐸 手动切换",
+      "type": "selector",
+      "outbounds": [
+        "🇭🇰 香港 01",
+        "🇭🇰 香港 02",
+        "🇭🇰 香港 03",
+        "🇭🇰 香港 04",
+        "🇭🇰 香港 05",
+        "🇭🇰 香港 06",
+        "🇹🇼 台湾 01",
+        "🇹🇼 台湾 02",
+        "🇹🇼 台湾 03",
+        "🇹🇼 台湾 04",
+        "🇯🇵 日本 01",
+        "🇯🇵 日本 02",
+        "🇯🇵 日本 03",
+        "🇯🇵 日本 04",
+        "🇸🇬 新加坡 01",
+        "🇸🇬 新加坡 02",
+        "🇸🇬 新加坡 03",
+        "🇸🇬 新加坡 04",
+        "🇺🇸 美国 01",
+        "🇺🇸 美国 02",
+        "🇺🇸 美国 03",
+        "🇺🇸 美国 04",
+        "🇨🇦 加拿大",
+        "🇰🇷 韩国",
+        "🇻🇳 越南",
+        "🇲🇾 马来西亚",
+        "🇹🇭 泰国",
+        "🇮🇳 印度",
+        "🇳🇵 尼泊尔",
+        "🇵🇭 菲律宾",
+        "🇮🇳 🇮🇩 印度尼西亚",
+        "🇦🇺 澳大利亚",
+        "🇳🇿 新西兰",
+        "🇩🇪 德国",
+        "🇫🇷 法国",
+        "🇨🇭 瑞士",
+        "🇬🇧 英国",
+        "🇮🇪 爱尔兰",
+        "🇮🇸 冰岛",
+        "🇵🇱 波兰",
+        "🇮🇹 意大利",
+        "🇪🇸 西班牙",
+        "🇳🇱 荷兰",
+        "🇫🇮 芬兰",
+        "🇦🇹 奥地利",
+        "🇱🇹 立陶宛",
+        "🇸🇪 瑞典",
+        "🇬🇷 希腊",
+        "🇱🇻 拉脱维亚",
+        "🇳🇴 挪威",
+        "🇩🇰 丹麦",
+        "🇧🇪 比利时",
+        "🇱🇺 卢森堡",
+        "🇲🇰 马其顿",
+        "🇦🇲 亚美尼亚",
+        "🇬🇪 格鲁吉亚",
+        "🇵🇹 葡萄牙",
+        "🇺🇦 乌克兰",
+        "🇲🇩 摩尔多瓦",
+        "🇪🇪 爱沙尼亚",
+        "🇭🇷 克罗地亚",
+        "🇷🇴 罗马尼亚",
+        "🇸🇮 斯洛文尼亚",
+        "🇷🇺 俄罗斯",
+        "🇧🇬 保加利亚",
+        "🇹🇷 土耳其",
+        "🇷🇸 塞尔维亚",
+        "🇪🇬 埃及",
+        "🇳🇬 尼日利亚",
+        "🇲🇦 摩洛哥",
+        "🇿🇦 南非",
+        "🇸🇦 沙特阿拉伯",
+        "🇮🇶 伊拉克",
+        "🇮🇱 以色列",
+        "🇨🇾 塞浦路斯",
+        "🇴🇲 阿曼",
+        "🇦🇪 阿拉伯联合酋长国",
+        "🇶🇦 卡塔尔",
+        "🇵🇰 巴基斯坦",
+        "🇺🇿 乌兹别克斯坦",
+        "🇰🇿 哈萨克斯坦",
+        "🇦🇷 阿根廷",
+        "🇧🇷 巴西",
+        "🇵🇪 秘鲁",
+        "🇨🇴 哥伦比亚",
+        "🇬🇹 危地马拉",
+        "🇪🇨 厄瓜多尔",
+        "🇨🇷 哥斯达黎加",
+        "🇲🇽 墨西哥",
+        "🇨🇱 智利",
+        "🇧🇴 玻利维亚",
+        "🇺🇾 乌拉圭"
+      ]
+    },
+    {
+      "tag": "🔯 香港自动",
+      "type": "urltest",
+      "outbounds": [
+        "🇭🇰 香港 01",
+        "🇭🇰 香港 02",
+        "🇭🇰 香港 03",
+        "🇭🇰 香港 04",
+        "🇭🇰 香港 05",
+        "🇭🇰 香港 06"
+      ],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": "10m",
+      "tolerance": 50
+    },
+    {
+      "tag": "♻️ 自动选择",
+      "type": "urltest",
+      "outbounds": [
+        "🇭🇰 香港 01",
+        "🇭🇰 香港 02",
+        "🇭🇰 香港 03",
+        "🇭🇰 香港 04",
+        "🇭🇰 香港 05",
+        "🇭🇰 香港 06",
+        "🇹🇼 台湾 01",
+        "🇹🇼 台湾 02",
+        "🇹🇼 台湾 03",
+        "🇹🇼 台湾 04",
+        "🇯🇵 日本 01",
+        "🇯🇵 日本 02",
+        "🇯🇵 日本 03",
+        "🇯🇵 日本 04",
+        "🇸🇬 新加坡 01",
+        "🇸🇬 新加坡 02",
+        "🇸🇬 新加坡 03",
+        "🇸🇬 新加坡 04",
+        "🇺🇸 美国 01",
+        "🇺🇸 美国 02",
+        "🇺🇸 美国 03",
+        "🇺🇸 美国 04",
+        "🇨🇦 加拿大",
+        "🇰🇷 韩国",
+        "🇻🇳 越南",
+        "🇲🇾 马来西亚",
+        "🇹🇭 泰国",
+        "🇮🇳 印度",
+        "🇳🇵 尼泊尔",
+        "🇵🇭 菲律宾",
+        "🇮🇳 🇮🇩 印度尼西亚",
+        "🇦🇺 澳大利亚",
+        "🇳🇿 新西兰",
+        "🇩🇪 德国",
+        "🇫🇷 法国",
+        "🇨🇭 瑞士",
+        "🇬🇧 英国",
+        "🇮🇪 爱尔兰",
+        "🇮🇸 冰岛",
+        "🇵🇱 波兰",
+        "🇮🇹 意大利",
+        "🇪🇸 西班牙",
+        "🇳🇱 荷兰",
+        "🇫🇮 芬兰",
+        "🇦🇹 奥地利",
+        "🇱🇹 立陶宛",
+        "🇸🇪 瑞典",
+        "🇬🇷 希腊",
+        "🇱🇻 拉脱维亚",
+        "🇳🇴 挪威",
+        "🇩🇰 丹麦",
+        "🇧🇪 比利时",
+        "🇱🇺 卢森堡",
+        "🇲🇰 马其顿",
+        "🇦🇲 亚美尼亚",
+        "🇬🇪 格鲁吉亚",
+        "🇵🇹 葡萄牙",
+        "🇺🇦 乌克兰",
+        "🇲🇩 摩尔多瓦",
+        "🇪🇪 爱沙尼亚",
+        "🇭🇷 克罗地亚",
+        "🇷🇴 罗马尼亚",
+        "🇸🇮 斯洛文尼亚",
+        "🇷🇺 俄罗斯",
+        "🇧🇬 保加利亚",
+        "🇹🇷 土耳其",
+        "🇷🇸 塞尔维亚",
+        "🇪🇬 埃及",
+        "🇳🇬 尼日利亚",
+        "🇲🇦 摩洛哥",
+        "🇿🇦 南非",
+        "🇸🇦 沙特阿拉伯",
+        "🇮🇶 伊拉克",
+        "🇮🇱 以色列",
+        "🇨🇾 塞浦路斯",
+        "🇴🇲 阿曼",
+        "🇦🇪 阿拉伯联合酋长国",
+        "🇶🇦 卡塔尔",
+        "🇵🇰 巴基斯坦",
+        "🇺🇿 乌兹别克斯坦",
+        "🇰🇿 哈萨克斯坦",
+        "🇦🇷 阿根廷",
+        "🇧🇷 巴西",
+        "🇵🇪 秘鲁",
+        "🇨🇴 哥伦比亚",
+        "🇬🇹 危地马拉",
+        "🇪🇨 厄瓜多尔",
+        "🇨🇷 哥斯达黎加",
+        "🇲🇽 墨西哥",
+        "🇨🇱 智利",
+        "🇧🇴 玻利维亚",
+        "🇺🇾 乌拉圭"
+      ],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": "10m",
+      "tolerance": 50
+    },
+    {
+      "tag": "GLOBAL",
+      "type": "selector",
+      "outbounds": [
+        "♻️ 自动选择",
+        "🎯 全球直连",
+        "🐸 手动切换"
+      ]
+    },
+    {
+      "tag": "🎯 全球直连",
+      "type": "direct"
+    },
+    {
+      "tag": "dns-out",
+      "type": "dns"
+    },
+    {
+      "tag": "🇭🇰 香港 01",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 21101,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇭🇰 香港 02",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 21102,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇭🇰 香港 03",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 21103,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇭🇰 香港 04",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 21004,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇭🇰 香港 05",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 21005,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇭🇰 香港 06",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 21006,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇹🇼 台湾 01",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 22001,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇹🇼 台湾 02",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 22002,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇹🇼 台湾 03",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 22003,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇹🇼 台湾 04",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 22004,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇯🇵 日本 01",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 24001,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇯🇵 日本 02",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 24002,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇯🇵 日本 03",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 24003,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇯🇵 日本 04",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 24004,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇸🇬 新加坡 01",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 23001,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇸🇬 新加坡 02",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 23002,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇸🇬 新加坡 03",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 23003,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇸🇬 新加坡 04",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 23004,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇺🇸 美国 01",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 26001,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇺🇸 美国 02",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 26002,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇺🇸 美国 03",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 26003,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇺🇸 美国 04",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 26004,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇨🇦 加拿大",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27014,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇰🇷 韩国",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 25001,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇻🇳 越南",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27024,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇲🇾 马来西亚",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27018,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇹🇭 泰国",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27016,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇮🇳 印度",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27020,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇳🇵 尼泊尔",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27055,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇵🇭 菲律宾",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27001,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇮🇳 🇮🇩 印度尼西亚",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27019,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇦🇺 澳大利亚",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27008,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇳🇿 新西兰",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27028,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇩🇪 德国",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27004,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇫🇷 法国",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27023,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇨🇭 瑞士",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27007,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇬🇧 英国",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27005,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇮🇪 爱尔兰",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27032,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇮🇸 冰岛",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27064,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇵🇱 波兰",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27010,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇮🇹 意大利",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27012,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇪🇸 西班牙",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27026,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇳🇱 荷兰",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27027,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇫🇮 芬兰",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27033,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇦🇹 奥地利",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27034,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇱🇹 立陶宛",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27035,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇸🇪 瑞典",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27036,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇬🇷 希腊",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27037,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇱🇻 拉脱维亚",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27038,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇳🇴 挪威",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27039,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇩🇰 丹麦",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27040,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇧🇪 比利时",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27041,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇱🇺 卢森堡",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27065,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇲🇰 马其顿",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27042,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇦🇲 亚美尼亚",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27043,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇬🇪 格鲁吉亚",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27067,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇵🇹 葡萄牙",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27044,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇺🇦 乌克兰",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27022,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇲🇩 摩尔多瓦",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27013,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇪🇪 爱沙尼亚",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27030,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇭🇷 克罗地亚",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27031,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇷🇴 罗马尼亚",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27068,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇸🇮 斯洛文尼亚",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27069,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇷🇺 俄罗斯",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27025,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇧🇬 保加利亚",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27047,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇹🇷 土耳其",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27003,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇷🇸 塞尔维亚",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27059,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇪🇬 埃及",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27021,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇳🇬 尼日利亚",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27029,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇲🇦 摩洛哥",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27058,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇿🇦 南非",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27049,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇸🇦 沙特阿拉伯",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27052,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇮🇶 伊拉克",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27057,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇮🇱 以色列",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27053,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇨🇾 塞浦路斯",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27056,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇴🇲 阿曼",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27054,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇦🇪 阿拉伯联合酋长国",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27048,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇶🇦 卡塔尔",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27051,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇵🇰 巴基斯坦",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27017,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇺🇿 乌兹别克斯坦",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27015,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇰🇿 哈萨克斯坦",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27045,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇦🇷 阿根廷",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27006,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇧🇷 巴西",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27009,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇵🇪 秘鲁",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27050,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇨🇴 哥伦比亚",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27060,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇬🇹 危地马拉",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27061,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇪🇨 厄瓜多尔",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27062,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇨🇷 哥斯达黎加",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27063,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇲🇽 墨西哥",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27011,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇨🇱 智利",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27002,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇧🇴 玻利维亚",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27066,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    },
+    {
+      "tag": "🇺🇾 乌拉圭",
+      "type": "shadowsocks",
+      "server": "lienbagh.yangliq.com",
+      "server_port": 27046,
+      "method": "aes-128-gcm",
+      "password": "6532c3b2-9464-4a34-9a1b-d7caf788b436"
+    }
+  ],
+  "route": {
+    "auto_detect_interface": true,
+    "final": "GLOBAL",
+    "rules": [
+      {
+        "ip_cidr": [
+          "101.89.153.194",
+          "165.22.55.42"
+        ],
+        "outbound": "🎯 全球直连"
+      },
+      {
+        "domain": [
+          "skyeyes.com.cn"
+        ],
+        "domain_suffix": [
+          "skit2.com",
+          "tianyan.com",
+          "douyin.com",
+          "zijieapi.com",
+          "firstvar.com",
+          "umijs.org",
+          ".design",
+          "firstvar.com",
+          "hailiangip.com",
+          "tapd.cn",
+          "lanhuapp.com",
+          ".cn"
+        ],
+        "outbound": "🎯 全球直连"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "port": 53
+          },
+          {
+            "protocol": "dns"
+          }
+        ],
+        "outbound": "dns-out"
+      },
+      {
+        "clash_mode": "direct",
+        "outbound": "🎯 全球直连"
+      },
+      {
+        "clash_mode": "global",
+        "outbound": "GLOBAL"
+      },
+      {
+        "domain": [
+          "clash.razord.top",
+          "yacd.metacubex.one",
+          "yacd.haishan.me",
+          "d.metacubex.one"
+        ],
+        "outbound": "🎯 全球直连"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "🎯 全球直连"
+      },
+      {
+        "rule_set": "geosite-geolocation-!cn",
+        "outbound": "🚀 节点选择"
+      },
+      {
+        "rule_set": [
+          "geoip-cn",
+          "geosite-cn"
+        ],
+        "outbound": "🎯 全球直连"
+      }
+    ],
+    "rule_set": [
+      {
+        "tag": "geosite-openai",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Toperlock/sing-box-geosite/main/rule/OpenAI.srs",
+        "download_detour": "🎯 全球直连"
+      },
+      {
+        "tag": "geosite-youtube",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/youtube.srs",
+        "download_detour": "🎯 全球直连"
+      },
+      {
+        "tag": "geoip-google",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/google.srs",
+        "download_detour": "🎯 全球直连"
+      },
+      {
+        "tag": "geosite-google",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google.srs",
+        "download_detour": "🎯 全球直连"
+      },
+      {
+        "tag": "geosite-github",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/github.srs",
+        "download_detour": "🎯 全球直连"
+      },
+      {
+        "tag": "geoip-telegram",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/telegram.srs",
+        "download_detour": "🎯 全球直连"
+      },
+      {
+        "tag": "geosite-telegram",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/telegram.srs",
+        "download_detour": "🎯 全球直连"
+      },
+      {
+        "tag": "geosite-tiktok",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/tiktok.srs",
+        "download_detour": "🎯 全球直连"
+      },
+      {
+        "tag": "geoip-netflix",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/netflix.srs",
+        "download_detour": "🎯 全球直连"
+      },
+      {
+        "tag": "geosite-netflix",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/netflix.srs",
+        "download_detour": "🎯 全球直连"
+      },
+      {
+        "tag": "geoip-apple",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo-lite/geoip/apple.srs",
+        "download_detour": "🎯 全球直连"
+      },
+      {
+        "tag": "geosite-apple",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/apple.srs",
+        "download_detour": "🎯 全球直连"
+      },
+      {
+        "tag": "geosite-microsoft",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/microsoft.srs",
+        "download_detour": "🎯 全球直连"
+      },
+      {
+        "tag": "geosite-geolocation-!cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/geolocation-!cn.srs",
+        "download_detour": "🎯 全球直连"
+      },
+      {
+        "tag": "geoip-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs",
+        "download_detour": "🎯 全球直连"
+      },
+      {
+        "tag": "geosite-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cn.srs",
+        "download_detour": "🎯 全球直连"
+      }
+    ]
+  }
+}
