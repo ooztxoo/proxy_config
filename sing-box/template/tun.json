@@ -1,18 +1,97 @@
 {
   "log": {
-    "level": "info",
+    "disabled": false,
+    "level": "warn",
     "timestamp": true
   },
+  "dns": {
+    "servers": [
+      {
+        "tag": "cfg-Ali-dns",
+        "address": "https://223.5.5.5/dns-query?",
+        "address_strategy": "ipv4_only",
+        "strategy": "ipv4_only",
+        "detour": "direct-out"
+      },
+      {
+        "tag": "cfg-google-dns",
+        "address": "https://dns.google/dns-query",
+        "address_resolver": "cfg-Ali-dns",
+        "address_strategy": "ipv4_only",
+        "strategy": "ipv4_only",
+        "detour": "select-out",
+        "client_subnet": "1.0.1.0"
+      }
+    ],
+    "rules": [
+      {
+        "ip_version": 4,
+        "outbound": "any",
+        "server": "cfg-Ali-dns"
+      },
+      {
+        "clash_mode": "Direct",
+        "server": "cfg-Ali-dns"
+      },
+      {
+        "clash_mode": "Global",
+        "server": "cfg-google-dns"
+      },
+      {
+        "rule_set": [
+          "geosite-geolocation-cn"
+        ],
+        "server": "cfg-Ali-dns"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "rule_set": "geosite-geolocation-!cn",
+            "invert": true
+          },
+          {
+            "rule_set": "geoip-cn"
+          }
+        ],
+        "server": "cfg-google-dns"
+      }
+    ],
+    "strategy": "ipv4_only",
+    "disable_cache": true,
+    "disable_expire": false,
+    "independent_cache": false,
+    "final": "cfg-google-dns"
+  },
   "inbounds": [
+    {
+      "type": "direct",
+      "tag": "dns-in",
+      "listen": "::",
+      "listen_port": 5333
+    },
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "::",
+      "listen_port": 5330,
+      "udp_timeout": "300s",
+      "sniff": true,
+      "sniff_override_destination": false,
+      "set_system_proxy": false
+    },
     {
       "type": "tun",
       "tag": "tun-in",
       "interface_name": "tun0",
-      "address": "172.19.0.1/30",
-      "mtu": 1500,
+      "address": [
+        "172.19.0.1/30"
+      ],
+      "mtu": 9000,
+      "gso": false,
       "auto_route": true,
-      "strict_route": false,
-      "auto_redirect":false,
+      "udp_timeout": "300s",
       "stack": "system",
       "sniff": true,
       "sniff_override_destination": false
@@ -20,39 +99,130 @@
   ],
   "outbounds": [
     {
-      "tag": "proxy",
-      "type": "vless",
-      "server": "server",
-      "server_port": 443,
-      "uuid": "2d5f4b9a-0a96-42ed-aae3-b1f8854cf931",
-      "flow": "xtls-rprx-vision",
-      "tls": {
-        "enabled": true,
-        "server_name": "servername",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "SUDD3lECQszxyDD9FZFcB0QpG3XzaVD8tzEH98kcEko",
-          "short_id": "c24d2408508ee08f"
-        }
-      },
-      "tcp_fast_open": true,
-      "tcp_multi_path": true
-    },
-    {
       "type": "direct",
-      "tag": "direct"
+      "tag": "direct-out",
+      "routing_mark": 100
     },
     {
       "type": "block",
-      "tag": "block"
+      "tag": "block-out"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    },
+    {
+      "type": "vless",
+      "tag": "cfg-vless-out",
+      "routing_mark": 100,
+      "server": "你的域名",
+      "server_port": 11111,
+      "uuid": "服务端对应的uuid",
+      "flow": "xtls-rprx-vision",
+      "packet_encoding": "xudp",
+      "tls": {
+        "enabled": true,
+        "insecure": false
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "type": "trojan",
+      "tag": "cfg-trojan-out",
+      "routing_mark": 100,
+      "server": "你的域名",
+      "server_port": 22222,
+      "password": "服务端对应的密码",
+      "tls": {
+        "enabled": true,
+        "insecure": false
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "type": "hysteria2",
+      "tag": "cfg-hysteria2-out",
+      "routing_mark": 100,
+      "server": "服务端 ip",
+      "server_port": 33333,
+      "password": "服务端对应的密码",
+      "tls": {
+        "enabled": true,
+        "server_name": "你的域名",
+        "insecure": false
+      },
+      "domain_strategy": "prefer_ipv4"
+    },
+    {
+      "type": "tuic",
+      "tag": "cfg-tuic-out",
+      "routing_mark": 100,
+      "server": "服务端 ip",
+      "server_port": 44444,
+      "password": "服务端对应密码",
+      "uuid": "服务端对应uuid",
+      "congestion_control": "cubic",
+      "heartbeat": "10s",
+      "tls": {
+        "enabled": true,
+        "server_name": "你的域名",
+        "insecure": false,
+        "alpn": [
+          "h3"
+        ]
+      },
+      "domain_strategy": "ipv4_only"
+    },
+    {
+      "type": "selector",
+      "tag": "select-out",
+      "outbounds": [
+        "cfg-vless-out",
+        "cfg-trojan-out",
+        "cfg-hysteria2-out",
+        "cfg-tuic-out"
+      ],
+      "default": "cfg-hysteria2-out",
+      "interrupt_exist_connections": true
     }
   ],
   "route": {
     "rules": [
+      {
+        "inbound": "dns-in",
+        "outbound": "dns-out"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "protocol": "dns"
+          },
+          {
+            "port": 53
+          }
+        ],
+        "outbound": "dns-out"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct-out"
+      },
+      {
+        "rule_set": [
+          "cfg-ad-rule"
+        ],
+        "outbound": "block-out"
+      },
+      {
+        "clash_mode": "Direct",
+        "outbound": "direct-out"
+      },
+      {
+        "clash_mode": "Global",
+        "outbound": "select-out"
+      },
       {
         "type": "logical",
         "mode": "or",
@@ -65,339 +235,74 @@
             "port": 443
           },
           {
-            "protocol": [
-              "stun",
-              "quic"
-            ]
+            "protocol": "stun"
           }
         ],
-        "outbound": "block"
+        "outbound": "block-out"
       },
       {
         "rule_set": [
-          "inline-block",
-          "geosite-category-ads-all"
+          "geoip-cn",
+          "geosite-geolocation-cn"
         ],
-        "outbound": "block"
+        "outbound": "direct-out"
       },
       {
-        "ip_is_private": true,
-        "outbound": "direct"
-      },
-      {
-        "rule_set": [
-          "inline-direct-ip",
-          "inline-direct-domain",
-          "geosite-apple-cn",
-          "geosite-category-games@cn",
-          "geosite-geolocation-cn",
-          "geosite-private",
-          "geoip-cn"
+        "inbound": [
+          "mixed-in"
         ],
-        "outbound": "direct"
+        "outbound": "cfg-hysteria2-out"
       },
       {
-        "protocol": "bittorrent",
-        "outbound": "direct"
-      },
-      {
-        "rule_set": [
-          "inline-proxy-ip",
-          "inline-proxy-domain",
-          "geosite-telegram",
-          "geoip-telegram",
-          "geosite-github",
-          "geosite-google-cn",
-          "openai"
+        "protocol": [
+          "quic"
         ],
-        "outbound": "Proxy"
+        "outbound": "block-out"
       }
     ],
     "rule_set": [
       {
-        "tag": "inline-block",
-        "type": "inline",
-        "rules": [
-          {
-            "domain_suffix": [
-              "ads.fmdisk.com",
-              "ads.feemoo.com",
-              "googleads.g.doubleclick.net",
-              "ads.google.com",
-              "afd.l.google.com",
-              "mobileads.google.com"
-            ],
-            "domain_keyword": [
-              "umeng",
-              "googleads"
-            ]
-          }
-        ]
-      },
-      {
-        "tag": "inline-direct-ip",
-        "type": "inline",
-        "rules": [
-          {
-            "ip_cidr": [
-              "45.121.184.0/24",
-              "103.10.124.0/23",
-              "103.28.54.0/24",
-              "146.66.152.0/24",
-              "146.66.155.0/24",
-              "153.254.86.0/24",
-              "155.133.224.0/22",
-              "155.133.230.0/24",
-              "155.133.232.0/23",
-              "155.133.234.0/24",
-              "155.133.236.0/22",
-              "155.133.240.0/23",
-              "155.133.244.0/23",
-              "155.133.246.0/24",
-              "155.133.248.0/21",
-              "162.254.192.0/21",
-              "185.25.182.0/23",
-              "190.217.32.0/22",
-              "192.69.96.0/22",
-              "205.196.6.0/24",
-              "208.64.200.0/22",
-              "208.78.164.0/22",
-              "205.185.194.0/24"
-            ]
-          }
-        ]
-      },
-      {
-        "tag": "inline-direct-domain",
-        "type": "inline",
-        "rules": [
-          {
-            "domain_suffix": [
-              ".cn",
-              "gdmf.apple.com",
-              "cdn.jsdelivr.net",
-              "steamcdn-a.akamaihd.net",
-              "cm.steampowered.com",
-              "steamserver.net",
-              "cdn.mileweb.cs.steampowered.com.8686c.com",
-              "cdn-ws.content.steamchina.com",
-              "cdn-qc.content.steamchina.com",
-              "cdn-ali.content.steamchina.com",
-              "epicgames-download1-1251447533.file.myqcloud.com",
-              "dl.steam.clngaa.com",
-              "dl.steam.ksyna.com",
-              "st.dl.bscstorage.net",
-              "st.dl.eccdnx.com",
-              "st.dl.pinyuncloud.com",
-              "steampipe.steamcontent.tnkjmec.com",
-              "steampowered.com.8686c.com",
-              "steamstatic.com.8686c.com",
-              "wmsjsteam.com",
-              "xz.pphimalayanrt.com",
-              "cm.steampowered.com",
-              "steamcontent.com",
-              "steamusercontent.com"
-            ],
-            "domain_keyword": [
-              "moutai",
-              "sina",
-              "weixin",
-              "bilibili",
-              "airdroid",
-              "announce",
-              "torrent",
-              "tracker"
-            ]
-          }
-        ]
-      },
-      {
-        "tag": "inline-proxy-ip",
-        "type": "inline",
-        "rules": [
-          {
-            "ip_cidr": [
-              "1.1.1.1",
-              "1.0.0.1",
-              "8.8.8.8",
-              "8.8.4.4",
-              "24.199.123.28/32",
-              "45.76.214.191/32",
-              "64.23.132.171/32",
-              "143.198.200.27/32",
-              "159.89.204.203/32"
-            ]
-          }
-        ]
-      },
-      {
-        "tag": "inline-proxy-domain",
-        "type": "inline",
-        "rules": [
-          {
-            "domain_suffix": [
-              "emby.wtf",
-              "ampproject.org",
-              "ampproject.net",
-              "g.whatsapp.net",
-              "us-west-2.amazonaws.com",
-              "developer.apple.com",
-              "humblebundle.com",
-              "goo.gl",
-              "gvt1.com",
-              "youtu.be",
-              "ytimg.com",
-              "ggpht.com",
-              "steamcommunity-a.akamaihd.net",
-              "steamstore-a.akamaihd.net",
-              "fanatical.com",
-              "humblebundle.com",
-              "playartifact.com",
-              "steam-chat.com",
-              "steamcommunity.com",
-              "underlords.com",
-              "v2ex.com"
-            ],
-            "domain_suffix": [
-              "algolia.net",
-              "auth0.com",
-              "cdn.cloudflare.net",
-              "challenges.cloudflare.com",
-              "chatgpt.livekit.cloud",
-              "client-api.arkoselabs.com",
-              "events.statsigapi.net",
-              "featuregates.org",
-              "host.livekit.cloud",
-              "identrust.com",
-              "intercom.io",
-              "intercomcdn.com",
-              "launchdarkly.com",
-              "oaistatic.com",
-              "oaiusercontent.com",
-              "observeit.net",
-              "openai.com",
-              "openaiapi-site.azureedge.net",
-              "openaicom.imgix.net",
-              "poe.com",
-              "segment.io",
-              "sentry.io",
-              "stripe.com",
-              "turn.livekit.cloud"
-            ],
-            "domain_keyword": [
-              "appledaily",
-              "openaicom-api"
-            ],
-            "domain": [
-              "api.statsig.com",
-              "browser-intake-datadoghq.com",
-              "chat.openai.com.cdn.cloudflare.net",
-              "o33249.ingest.sentry.io",
-              "openai-api.arkoselabs.com",
-              "openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net",
-              "openaicomproductionae4b.blob.core.windows.net",
-              "production-openaicom-storage.azureedge.net",
-              "static.cloudflareinsights.com"
-            ]
-          }
-        ]
-      },
-      {
-        "tag": "geosite-category-ads-all",
         "type": "remote",
-        "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/PaPerseller/sing-geosite/rule-set/geosite-category-ads-all.srs",
-        "download_detour": "direct",
-        "update_interval": "10d"
-      },
-      {
-        "tag": "geosite-telegram",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo-lite/geosite/telegram.srs",
-        "download_detour": "direct",
-        "update_interval": "30d"
-      },
-      {
-        "tag": "geosite-apple-cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/PaPerseller/sing-geosite/rule-set/geosite-apple-cn.srs",
-        "download_detour": "direct",
-        "update_interval": "30d"
-      },
-      {
-        "tag": "geosite-google-cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/PaPerseller/sing-geosite/rule-set/geosite-google-cn.srs",
-        "download_detour": "direct",
-        "update_interval": "30d"
-      },
-      {
-        "tag": "geosite-category-games@cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/PaPerseller/sing-geosite/rule-set/geosite-category-games@cn.srs",
-        "download_detour": "direct",
-        "update_interval": "30d"
-      },
-      {
         "tag": "geosite-geolocation-cn",
-        "type": "remote",
         "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/PaPerseller/sing-geosite/rule-set/geosite-geolocation-cn.srs",
-        "download_detour": "direct",
-        "update_interval": "10d"
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-geolocation-cn.srs",
+        "download_detour": "select-out"
       },
       {
-        "tag": "geosite-private",
         "type": "remote",
+        "tag": "geosite-geolocation-!cn",
         "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo-lite/geosite/private.srs",
-        "download_detour": "direct",
-        "update_interval": "30d"
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-geolocation-!cn.srs",
+        "download_detour": "select-out"
       },
       {
-        "tag": "geoip-telegram",
         "type": "remote",
-        "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo-lite/geoip/telegram.srs",
-        "download_detour": "direct",
-        "update_interval": "30d"
-      },
-      {
         "tag": "geoip-cn",
-        "type": "remote",
         "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/srs/cn.srs",
-        "download_detour": "direct",
-        "update_interval": "5d"
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs",
+        "download_detour": "select-out"
       },
       {
-        "tag": "geosite-github",
         "type": "remote",
+        "tag": "cfg-ad-rule",
         "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo-lite/geosite/github.srs",
-        "download_detour": "direct",
-        "update_interval": "30d"
-      },
-      {
-        "tag": "openai",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo-lite/geosite/openai.srs",
-        "download_detour": "direct",
-        "update_interval": "30d"
+        "url": "https://github.com/TG-Twilight/AWAvenue-Ads-Rule/raw/main/Filters/AWAvenue-Ads-Rule-Singbox.srs",
+        "download_detour": "select-out"
       }
     ],
-    "final": "proxy",
-    "auto_detect_interface": true
+    "auto_detect_interface": true,
+    "final": "select-out"
   },
   "experimental": {
     "cache_file": {
-      "enabled": true,
-      "path": "/usr/local/share/sing-box/cache.db"
+      "enabled": true
+    },
+    "clash_api": {
+      "external_controller": "192.168.31.4:9090",
+      "external_ui": "ui",
+      "external_ui_download_url": "https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip",
+      "external_ui_download_detour": "select-out",
+      "default_mode": "Rule"
     }
   }
 }
